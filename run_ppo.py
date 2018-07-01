@@ -105,7 +105,7 @@ def main(args):
                                       gaes=inp[2],
                                       rewards=inp[3],
                                       v_preds_next=inp[4])
-
+            print(iteration)
             writer.add_summary(summary, iteration)
         writer.close()
 

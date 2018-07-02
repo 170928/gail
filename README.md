@@ -1,5 +1,5 @@
 # Generative Adversarial Imitation Learning  
-Implementation of Generative Adversarial Imitation Learning(GAIL) using tensorflow  
+[Implementation of Generative Adversarial Imitation Learning(GAIL)](https://arxiv.org/abs/1606.03476) using tensorflow  
 
 ## Dependencies
 python>=3.5  

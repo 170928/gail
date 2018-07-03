@@ -73,10 +73,10 @@ def main(args):
                                , iteration)
             writer.add_summary(tf.Summary(value=[tf.Summary.Value(tag='episode_reward', simple_value=sum(rewards))])
                                , iteration)
-
-            if sum(rewards) >= 195:
+            print(iteration, sum(rewards), success_num)
+            if sum(rewards) >= 150:
                 success_num += 1
-                if success_num >= 100:
+                if success_num >= 10:
                     saver.save(sess, args.savedir + '/model.ckpt')
                     print('Clear!! Model saved.')
                     break
@@ -106,7 +106,7 @@ def main(args):
             # train policy
             inp = [observations, actions, gaes, d_rewards, v_preds_next]
             PPO.assign_policy_parameters()
-            for epoch in range(6):
+            for epoch in range(15):
                 sample_indices = np.random.randint(low=0, high=observations.shape[0],
                                                    size=32)  # indices are in [low, high)
                 sampled_inp = [np.take(a=a, indices=sample_indices, axis=0) for a in inp]  # sample training data

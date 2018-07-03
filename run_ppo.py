@@ -66,9 +66,11 @@ def main(args):
             writer.add_summary(tf.Summary(value=[tf.Summary.Value(tag='episode_reward', simple_value=sum(rewards))])
                                , iteration)
 
+            print(iteration, sum(rewards), success_num)
+
             if sum(rewards) >= 195:
                 success_num += 1
-                if success_num >= 100:
+                if success_num >= 10:
                     saver.save(sess, args.savedir+'/model.ckpt')
                     print('Clear!! Model saved.')
                     break

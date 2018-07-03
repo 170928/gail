@@ -89,8 +89,11 @@ def main(args):
 
             # train discriminator
             for i in range(2):
-                D.train(expert_s=expert_observations,
-                        expert_a=expert_actions,
+                sample_indices = (np.random.randint(expert_observations.shape[0], size=observations.shape[0]))
+                inp = [expert_observations, expert_actions]
+                sampled_inp = [np.take(a=a, indices=sample_indices, axis=0) for a in inp]  # sample training data
+                D.train(expert_s=sampled_inp[0],
+                        expert_a=sampled_inp[1],
                         agent_s=observations,
                         agent_a=actions)
 

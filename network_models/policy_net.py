@@ -8,17 +8,14 @@ class Policy_net:
         :param env: gym env
         """
 
-        ob_space = env.observation_space
-        act_space = env.action_space
-
         with tf.variable_scope(name):
-            self.obs = tf.placeholder(dtype=tf.float32, shape=[None] + list(ob_space.shape), name='obs')
+            self.obs = tf.placeholder(dtype=tf.float32, shape=[None, 4], name='obs')
 
             with tf.variable_scope('policy_net'):
                 layer_1 = tf.layers.dense(inputs=self.obs, units=60, activation=tf.tanh)
                 layer_2 = tf.layers.dense(inputs=layer_1, units=60, activation=tf.tanh)
-                layer_3 = tf.layers.dense(inputs=layer_2, units=act_space.n, activation=tf.tanh)
-                self.act_probs = tf.layers.dense(inputs=layer_3, units=act_space.n, activation=tf.nn.softmax)
+                layer_3 = tf.layers.dense(inputs=layer_2, units=60, activation=tf.tanh)
+                self.act_probs = tf.layers.dense(inputs=layer_3, units=2, activation=tf.nn.softmax)
 
             with tf.variable_scope('value_net'):
                 layer_1 = tf.layers.dense(inputs=self.obs, units=60, activation=tf.tanh)
